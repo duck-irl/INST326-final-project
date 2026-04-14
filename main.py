@@ -24,11 +24,31 @@ class Station:
     trains: list[Train] = field(default_factory=list)
 
     def add_train(self, train):
+        """Adds a train to the station's list of trains.
+        
+        Args:
+            train (Train): the Train object to add to the station
+        """
         self.trains.append(train)
 
     def check_times(self):
+        """Returns a list of arrival time strings for all passenger trains currently at or approaching the station.
+        
+        Returns:
+            list[str]: a list of formatted strings describing each train's status. 
+        """
         # train.estimated_time is either a number, "ARR", "BRD" "---", or "" ("---" is for non-passenger trains)
-        pass
+        times = []
+        for train in self.trains:
+            if train.estimated_time == "ARR":
+                times.append(f"{train.line} line to {train.end_station_name}: Arriving")
+            elif train.estimated_time == "BRD":
+                times.append(f"{train.line} line to {train.end_station_name}: Boarding")
+            elif train.estimated_time == "---" or train.estimated_time == "":
+                continue #skips non-passenger or unknown trains
+            else:
+                times.append(f"{train.line} line to {train.end_station_name}: {train.estimated_time} min")
+        return times
 
 @dataclass
 class Train:
