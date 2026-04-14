@@ -23,8 +23,8 @@ class Station:
     lines: list[str]
     trains: list[Train] = field(default_factory=list)
 
-    def add_train(self):
-        pass
+    def add_train(self, train):
+        self.trains.append(train)
 
     def check_times(self):
         # train.estimated_time is either a number, "ARR", "BRD" "---", or "" ("---" is for non-passenger trains)
