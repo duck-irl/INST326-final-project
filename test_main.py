@@ -1,3 +1,4 @@
+from main import Station, Train 
 
 def test_add_train():
     #checks if a train is properly added to the station's trains list
