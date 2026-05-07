@@ -141,3 +141,22 @@ def refresh_data():
 
 if __name__ == "__main__":
     stations, trains = refresh_data()
+
+    print(f"\nStations: {len(set(station.name for station in stations))}, Trains: {len(trains)}")
+    station_name = input("What station would you like to check? ")
+    found_station = False
+    for station in stations:
+        if station.name == station_name:
+            found_station = True
+            print("\n=================================")
+            print(f"Station: {station.name}")
+            print("Line(s): " + ", ".join(station.lines))
+            print("=================================")
+            for time in station.check_times():
+                print(time)
+            print("=================================")
+
+    if not found_station:
+        print("\nStation not found. Please check your spelling and try again.", end="\n\n")
+    else:
+        print("\nData provided by WMATA API (https://developer.wmata.com/)", end="\n\n")
